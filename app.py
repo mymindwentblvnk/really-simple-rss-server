@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-from flask import Flask, request, make_response, Response
+from flask import Flask, request, Response
 from flask_restful import Api, Resource, reqparse
 from flask_sqlalchemy import SQLAlchemy
 
@@ -33,7 +33,6 @@ class Entry(db.Model):
     summary = db.Column(db.String)
     content = db.Column(db.String)
     link = db.Column(db.String)
-
 
 
 class Feed(Resource):
@@ -87,6 +86,7 @@ class Feed(Resource):
         db_entries = Entry.query.\
                            filter_by(domain=domain).\
                            filter_by(filter=filter).\
+                           order_by(db.desc(Entry.updated)).\
                            all()
         feed = self.create_feed_from_db_entries(db_entries)
         xml = feed.get_response().get_data().decode('utf-8')
