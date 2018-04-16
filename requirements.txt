@@ -1,0 +1,9 @@
+pudb
+ptpython
+flake8
+SQLAlchemy
+psycopg2
+Flask==0.12.2
+Flask-RESTful==0.3.6
+Flask-SQLAlchemy==2.3.2
+gunicorn==19.7.1
